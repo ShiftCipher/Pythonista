@@ -65,25 +65,31 @@ os.system('brew tap homebrew/homebrew-php')
 os.system('brew unlink php56') 
 os.system('brew install php70')
 
+# Brew Autoupdate
 print "Enabling Automatic Brew Updates & Upgrades"
 os.system('brew tap domt4/autoupdate')
 os.system('brew autoupdate --start --upgrade')
 
-# Install Languages
-print "Installing Git NodeJS Python Ruby"
-
-os.system('brew install git ruby')
-os.system('brew install nvm')
-os.system('nvm install node')
-os.system('nvm use node')
-os.system('brew install python python3')
-
-os.system('brew link --overwrite git node python python3 ruby')
-
+# Brew Install
 print "Installing Brews"
 os.system('brew install curl wget git-flow')
 
-print "Installing Command Line Tools"
+# Install Git and Ruby
+print "Installing Git and Ruby"
+os.system('brew install git ruby')
+
+# Install NVM and Node.js 
+print "Installing Git and Ruby"
+os.system('brew install nvm')
+os.system('nvm install node')
+os.system('nvm use node')
+
+# Install Python2 and Python3
+os.system('brew install python python3')
+os.system('brew link --overwrite git node python python3 ruby')
+
+# Installing Node CLI Packages
+print "Installing Node CLI Packages"
 os.system('npm isntall -g \
 node-gyp \
 express-generator \
@@ -113,7 +119,7 @@ caminte-cli\
 
 # OSX Tweaks & Essentials
 print "Installing Quicklook Helpers"
-os.system('brew cask install qlcolorcode qlmarkdown qlimagesize quicklook-csv quicklook-json webpquicklook')
+os.system('brew cask install qlmarkdown quicklook-csv quicklook-json')
 
 print "Installing Fonts"
 os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
@@ -124,26 +130,20 @@ whatsapp \
 blender \
 freecad \
 kicad \
+sketchup \ 
 fritzing \
 sketchup \
 dropbox \
-odrive \
 spectacle \
 the-unarchiver \
-cleanmymac \
 pdfexpert \
 evernote \
-odrive \
 rescuetime \
 google-chrome \
 duet \
 skype \
-syncmate \
 1password \
-pdfexpert \
-cleanmymac \
 parallels-desktop \
-rescuetime \
 slack \
 gitter \
 airserver \
@@ -152,7 +152,6 @@ paw \
 screens \
 screens-connect \
 reveal \
-soundnode \
 epic-games-launcher \
 openemu \
 ifunbox \
@@ -176,7 +175,6 @@ principle \
 
 print "Installing Developer Tools"
 os.system('brew cask install \
-node \
 atom \
 gitkraken \
 postgres \
@@ -185,15 +183,12 @@ redis \
 mamp \
 iterm2 \
 shuttle \
-staruml \
 webstorm \
-clion \
 phpstorm \
+clion \
 appcode \
 datagrip \
 ngrok \
-rightfont \
-brackets \
 spyder \
 ')
 
@@ -211,7 +206,6 @@ emmet \
 git-plus \
 git-status \
 pigments \
-seti-ui \
 source-preview-sass \
 language-blade \
 minimap \
