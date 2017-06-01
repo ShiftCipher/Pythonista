@@ -1,6 +1,4 @@
-#!/Library/Frameworks/Python.framework/Versions/2.7/bin/python
 # -*- coding: utf-8 -*-
-
 import os
 import json
 import urllib2
@@ -9,10 +7,15 @@ print "Welcome to the World of Tomorrow"
 
 name = ''
 email = ''
+computer = ''
 
 # Basic Info
 while name == '':
   name = raw_input("What's your Name?\n").strip()
+
+# Basic Info
+while computer == '':
+  computer = raw_input("What's your Computer Name?\n").strip()
 
 while email == '' or '@' not in email:
   email = raw_input("What's your Email?\n").strip()
@@ -21,7 +24,7 @@ print "Welcome. Sr. %s!" % name
 print "You'll be asked for your password at a few points in the process"
 # Sudo: Spectacle, ZSH, OSX Settings
 print "*************************************"
-print "Setting up your Mac..."
+print "Setting up your Mac"
 print "*************************************"
 
 
@@ -32,10 +35,10 @@ if not os.path.isfile(os.path.expanduser("~") + '/.ssh/id_rsa.pub'):
 
 
 # Set computer name (as done via System Preferences → Sharing)
-os.system('sudo scutil --set ComputerName "%s"' % name)
-os.system('sudo scutil --set HostName "%s"' % name)
-os.system('sudo scutil --set LocalHostName "%s"' % name)
-os.system('sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "%s"' % name)
+os.system('sudo scutil --set ComputerName "%s"' % computer)
+os.system('sudo scutil --set HostName "%s"' % computer)
+os.system('sudo scutil --set LocalHostName "%s"' % computer)
+os.system('sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "%s"' % computer)
 
 
 # Check if Xcode Command Line Tools are installed
@@ -43,156 +46,170 @@ if os.system('xcode-select -p') != 0:
   print "Installing XCode Tools"
   os.system('xcode-select --install')
   print "*************************************"
-  print "Restart your Mac to continue"
+  print "Restart your Mac to Continue"
   print "*************************************"
   exit()
 
 
-# Install Brew & Brew Cask
-print "Installing Brew & Brew Cask"
+# Install Brew
+print "Installing Brews"
 os.system('ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"')
+os.system('brew install mas curl wget python python3 git')
+
+# Install Cask
+print "Installing Brew & Brew Cask"
 os.system('brew tap homebrew/services')
 os.system('brew tap homebrew/versions')
 os.system('brew tap caskroom/cask')
-os.system('brew tap caskroom/versions')
-os.system('brew tap caskroom/fonts')
-os.system('brew update && brew upgrade && brew cleanup && brew cask cleanup')
 
-print "Enabling Automatic Brew Updates & Upgrades"
-os.system('brew tap domt4/autoupdate')
-os.system('brew autoupdate --start --upgrade')
+# Install PHP7
+print "Install PHP7"
+os.system('brew tap homebrew/dupes')
+os.system('brew tap homebrew/homebrew-php')
+os.system('brew unlink php56')
+os.system('brew install php70')
 
-# Install Languages
-print "Installing Git NodeJS Python Ruby"
-os.system('brew install git node python python3 ruby')
-os.system('brew link --overwrite git node python python3 ruby')
-os.system('brew install git-flow')
+# Install NVM and Node.js
+print "Installing Node.js"
+os.system('brew install nvm')
+os.system('export NVM_DIR="$HOME/.nvm"')
+os.system('. "/usr/local/opt/nvm/nvm.sh"')
+os.system('brew install yarn')
+os.system('nvm use system')
+os.system('brew link --overwrite git node python python3')
 
-print "Installing Brews"
-os.system('brew install curl wget')
+# Install Mac Store Apps
+print "Installing Mac Store Apps"
+os.system('mas install 970502923') # Typeeto
+os.system('mas install 407963104') # Pixelmator
+os.system('mas install 1107421413') # 1Blocker
+os.system('mas install 404705039') # Graphic
+os.system('mas install 409201541') # Pages
+os.system('mas install 1176895641') # Spark
+os.system('mas install 434290957') # Motion
+os.system('mas install 425424353') # The Unarchiver
+os.system('mas install 409203825') # Numbers
+os.system('mas install 443987910') # 1Password
 
-node = '''
-nvm
-node-gyp
-express-generator
-pug
-pug-cli
-gulp-cli
-nodemon
-browser-sync
-bower
-gulp
-postcss-cli
-autoprefixer
-uglify-js
-clean-css
-imagemin
-imagemin-cli
-node-inspector
-node-gyp
-nvm
-pm2
-istanbul
-babel-cli
-testling
-karma-cli
-browserify
+# Installing Yarn Packages
+print "Installing Yarn Packages"
+os.system('yarn global add \
+pug \
+pug-cli \
+gulp-cli \
+nodemon \
+browser-sync \
+bower \
+webpack \
+pm2 \
+istanbul \
+babel-cli \
+testling \
+karma-cli \
+browserify \
 tap-colorize
-caminte-cli
-'''
-
-print "Installing Command Line Tools"
-os.system('npm isntall -g "%s"' % node)
+')
 
 # OSX Tweaks & Essentials
 print "Installing Quicklook Helpers"
-os.system('brew cask install qlcolorcode qlmarkdown qlimagesize quicklook-csv quicklook-json webpquicklook')
+os.system('brew cask install quicklook-csv quicklook-json')
 
-print "Installing Fonts"
-os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
-
-apps = '''
-whatsapp
-blender
-freecad
-kicad
-fritzing
-sketchup
-dropbox
-spectacle
-the-unarchiver
-cleanmymac 
-pdfexpert
-evernote
-odrive
-rescuetime
-google-chrome
-duet
-skype
-syncmate
-1password
-pdfexpert
-cleanmymac
-parallels-desktop
-rescuetime
-slack
-gitter
-airserver
-beamer
-paw
-screens
-screens-connect
-reveal
-soundnode
-epic-games-launcher
-'''
-
-developer = '''
-node
-atom
-gitkraken
-postgres
-pgadmin3
-redis
-mamp
-iterm2
-shuttle
-staruml
-webstorm
-clion
-phpstorm
-appcode
-datagrip
-ngrok
-rightfont
-'''
-
-designer = '''
-adobe-creative-cloud
-adobe-photoshop-cc
-adobe-illustrator-cc
-adobe-indesign-cc
-schnapps
-invisionsync
-iconjar
-sketch-tool
-sketch-toolbox
-framer-studio
-origami
-principle
-'''
+# print "Installing Fonts"
+# os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
 
 print "Installing Essential Apps"
-os.system('brew cask install "%s"' % apps)
+os.system('brew cask install \
+fastlane \
+blender \
+freecad \
+kicad \
+sketchup \
+fritzing \
+sketchup \
+dropbox \
+odrive \
+spectacle \
+the-unarchiver \
+pdfexpert \
+evernote \
+rescuetime \
+google-chrome \
+duet \
+skype \
+parallels-desktop \
+slack \
+gitter \
+airserver \
+beamer \
+paw \
+screens \
+screens-connect \
+reveal \
+epic-games-launcher \
+openemu \
+ifunbox \
+cakebrew \
+gitup \
+vagrant-manager \
+cheatsheet \
+numi \
+')
+
+print "Installing Designer Tools"
+os.system('brew cask install \
+invisionsync \
+iconjar \
+sketch-toolbox \
+framer-studio \
+origami \
+principle \
+')
+
+print "Installing Developer Tools"
+os.system('brew cask install \
+iterm2 \
+atom \
+postgres \
+pgadmin3 \
+redis \
+mamp \
+shuttle \
+webstorm \
+clion \
+appcode \
+datagrip \
+ngrok \
+spyder \
+')
+
+print "Installing Atom Plugins"
+os.system('apm install \
+jshint \
+lenguage-api-blueprint \
+linter-api-blueprint \
+file-icons \
+git-time-machine\
+jupyter-notebook \
+language-pug \
+color-picker \
+hydrogen \
+dash \
+emmet \
+git-plus \
+git-status \
+pigments \
+source-preview-sass \
+language-blade \
+minimap \
+linter-php \
+linter \
+php-server \
+terminal-plus \
+api-workbench \
+')
 
 print "Installing iOS Tools"
 os.system('sudo gem install cocoapods')
-
-print "Installing Designer Tools"
-os.system('brew cask install "%s"' % designer)
-
-print "Installing Developer Tools"
-os.system('brew cask install "%s"' % developer)
 
 # Oh-My-ZSH. Dracula Theme for iTerm2 needs to be installed manually
 print "Installing Oh-My-Zsh with Dracula Theme"
@@ -226,8 +243,7 @@ print "Tweaking OSX Settings"
 os.system('defaults write NSGlobalDomain AppleShowAllExtensions -bool true')
 
 # Finder: allow text selection in Quick Look
-os.system('defaults write com.apple.finder QLEnableTextSelection -bool true')
-# Check for software updates daily
+os.system('defaults write com.apple.finder QLEnableTextSelection -bool true'# Check for software updates daily
 os.system('defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1')
 # Require password immediately after sleep or screen saver begins
 os.system('defaults write com.apple.screensaver askForPassword -int 1')
