@@ -31,7 +31,7 @@ print "*************************************"
 # Create a Private Key
 if not os.path.isfile(os.path.expanduser("~") + '/.ssh/id_rsa.pub'):
   print "Creating your Private Key"
-  os.system('ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "%s"' % email)
+  # os.system('ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "%s"' % email)
 
 
 # Set computer name (as done via System Preferences → Sharing)
@@ -50,98 +50,128 @@ if os.system('xcode-select -p') != 0:
   print "*************************************"
   exit()
 
-
-# Install Brew
-print "Installing Brews"
+# Install Homebrew
+print "Installing Homebrew"
 os.system('ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"')
-os.system('brew install mas curl wget python python3 git')
 
-# Install Cask
-print "Installing Brew & Brew Cask"
-os.system('brew tap homebrew/services')
-os.system('brew tap homebrew/versions')
-os.system('brew tap caskroom/cask')
-<<<<<<< HEAD:Setup.py
+# Brews Install
+print "Installing Brews"
+os.system('brew install curl \
+wget \
+git \
+python \
+python3 \
+tor \
+cmatrix \
+docker \
+mas \
+ncurses \
+docker-compose \
+')
 
-# Install PHP7
-print "Install PHP7"
-os.system('brew tap homebrew/dupes')
-os.system('brew tap homebrew/homebrew-php')
-os.system('brew unlink php56')
-os.system('brew install php70')
-
-# Install NVM and Node.js
-print "Installing Node.js"
-os.system('brew install nvm')
-os.system('export NVM_DIR="$HOME/.nvm"')
-os.system('. "/usr/local/opt/nvm/nvm.sh"')
-os.system('brew install yarn')
-os.system('nvm use system')
-os.system('brew link --overwrite git node python python3')
+os.system('brew link --overwrite git python python3')
 
 # Install Mac Store Apps
 print "Installing Mac Store Apps"
-os.system('mas install 970502923') # Typeeto
-os.system('mas install 407963104') # Pixelmator
+os.system('mas install 970502923')  # Typeeto
+os.system('mas install 407963104')  # Pixelmator
 os.system('mas install 1107421413') # 1Blocker
-os.system('mas install 404705039') # Graphic
-os.system('mas install 409201541') # Pages
+os.system('mas install 404705039')  # Graphic
+os.system('mas install 409201541')  # Pages
 os.system('mas install 1176895641') # Spark
-os.system('mas install 434290957') # Motion
-os.system('mas install 425424353') # The Unarchiver
-os.system('mas install 409203825') # Numbers
-os.system('mas install 443987910') # 1Password
+os.system('mas install 434290957')  # Motion
+os.system('mas install 425424353')  # The Unarchiver
+os.system('mas install 409203825')  # Numbers
+os.system('mas install 443987910')  # 1Password
+os.system('mas install 939343785')  # Icon Set Creator
+
+# Install NVM and Node.js
+print "Installing Node.js"
+os.system('brew install node')
+os.system('brew install nvm')
+os.system('export NVM_DIR="$HOME/.nvm"')
+os.system('. "/usr/local/opt/nvm/nvm.sh"')
+os.system('brew install yarn --without-node')
+os.system('nvm install node')
+os.system('nvm use node')
+os.system('brew link --overwrite node')
 
 # Installing Yarn Packages
 print "Installing Yarn Packages"
-os.system('yarn global add \
-=======
-os.system('brew update && brew upgrade && brew cleanup && brew cask cleanup')
-
-# Install PHP7 
-os.system('brew tap homebrew/dupes')
-os.system('brew tap homebrew/homebrew-php')
-os.system('brew unlink php56') 
-os.system('brew install php70')
+os.system('brew upgrade yarn')
 
 # Brew Autoupdate
 print "Enabling Automatic Brew Updates & Upgrades"
 os.system('brew tap domt4/autoupdate')
 os.system('brew autoupdate --start --upgrade')
 
-# Brew Install
-print "Installing Brews"
-os.system('brew install curl wget git-flow')
 
-# Install Git and Ruby
-print "Installing Git and Ruby"
-os.system('brew install git ruby')
 
-# Install NVM and Node.js 
-print "Installing Git and Ruby"
-os.system('brew install nvm')
-os.system('nvm install node')
-os.system('nvm use node')
+# Install Cask
+print "Installing Brew & Brew Cask"
+os.system('brew tap homebrew/services')
+os.system('brew tap homebrew/versions')
+os.system('brew tap caskroom/cask')
 
-# Install Python2 and Python3
-os.system('brew install python python3')
-os.system('brew link --overwrite git node python python3 ruby')
+
+print "Installing Essential Apps"
+os.system('brew cask install \
+adobe-creative-cloud \
+airserver \
+atom \
+blender \
+cakebrew \
+cheatsheet \
+dash \
+docker-toolbox \
+duet \
+etcher \
+fastlane \
+framer \
+framer-modules \
+freecad \
+fritzing \
+gitup \
+google-chrome \
+invisionsync \
+iphone-backup-extractor \
+jaxx \
+mactex \
+texmaker \
+kicad \
+openemu \
+origami \
+parallels-desktop \
+pdfexpert \
+postgres \
+principle \
+redis \
+schnapps \
+screens-connect \
+setapp\
+shuttle \
+sketch-tool \
+sketch-toolbox \
+skype \
+spectacle \
+the-unarchiver \
+torbrowser \
+vagrant \
+vagrant-manager \
+')
 
 # Installing Node CLI Packages
 print "Installing Node CLI Packages"
-os.system('npm isntall -g \
+os.system('npm install -g \
 node-gyp \
 express-generator \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
 pug \
 pug-cli \
 gulp-cli \
 nodemon \
 browser-sync \
 bower \
-<<<<<<< HEAD:Setup.py
 webpack \
-=======
 gulp \
 postcss-cli \
 autoprefixer \
@@ -150,157 +180,30 @@ clean-css \
 imagemin \
 imagemin-cli \
 node-inspector \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
 pm2 \
 istanbul \
 babel-cli \
 testling \
 karma-cli \
 browserify \
-<<<<<<< HEAD:Setup.py
-tap-colorize
-=======
 tap-colorize \
 caminte-cli\
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-')
-
-# OSX Tweaks & Essentials
-print "Installing Quicklook Helpers"
-<<<<<<< HEAD:Setup.py
-os.system('brew cask install quicklook-csv quicklook-json')
-
-# print "Installing Fonts"
-# os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
-
-print "Installing Essential Apps"
-os.system('brew cask install \
-fastlane \
-blender \
-freecad \
-kicad \
-sketchup \
-fritzing \
-sketchup \
-dropbox \
-odrive \
-=======
-os.system('brew cask install qlmarkdown quicklook-csv quicklook-json')
-
-print "Installing Fonts"
-os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
-
-print "Installing Essential Apps"
-os.system('brew cask install \
-whatsapp \
-blender \
-freecad \
-kicad \
-sketchup \ 
-fritzing \
-sketchup \
-dropbox \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-spectacle \
-the-unarchiver \
-pdfexpert \
-evernote \
-rescuetime \
-google-chrome \
-duet \
-skype \
-<<<<<<< HEAD:Setup.py
-=======
-1password \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-parallels-desktop \
-slack \
-gitter \
-airserver \
-beamer \
-paw \
-screens \
-screens-connect \
-reveal \
-epic-games-launcher \
-openemu \
-ifunbox \
-<<<<<<< HEAD:Setup.py
-cakebrew \
-gitup \
-vagrant-manager \
-cheatsheet \
-numi \
-=======
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-')
-
-print "Installing Designer Tools"
-os.system('brew cask install \
-<<<<<<< HEAD:Setup.py
-invisionsync \
-iconjar \
-=======
-adobe-creative-cloud \
-adobe-photoshop-cc \
-adobe-illustrator-cc \
-adobe-indesign-cc \
-schnapps \
-invisionsync \
-iconjar \
-sketch-tool \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-sketch-toolbox \
-framer-studio \
-origami \
-principle \
-')
-
-print "Installing Developer Tools"
-os.system('brew cask install \
-<<<<<<< HEAD:Setup.py
-iterm2 \
-atom \
-=======
-atom \
-gitkraken \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-postgres \
-pgadmin3 \
-redis \
-mamp \
-<<<<<<< HEAD:Setup.py
-shuttle \
-webstorm \
-=======
-iterm2 \
-shuttle \
-webstorm \
-phpstorm \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
-clion \
-appcode \
-datagrip \
-ngrok \
-spyder \
+ios-deploy \
 ')
 
 print "Installing Atom Plugins"
 os.system('apm install \
 jshint \
-<<<<<<< HEAD:Setup.py
 lenguage-api-blueprint \
 linter-api-blueprint \
 file-icons \
 git-time-machine\
 jupyter-notebook \
 language-pug \
-=======
 file-icons \
 git-time-machine\
 jupyter-notebook \
 language-pug \
->>>>>>> 2e51b81116acc77b1f751f79c25596976298cacd:iSetup.py
 color-picker \
 hydrogen \
 dash \
@@ -317,6 +220,14 @@ php-server \
 terminal-plus \
 api-workbench \
 ')
+
+
+# OSX Tweaks & Essentials
+print "Installing Quicklook Helpers"
+os.system('brew cask install qlmarkdown quicklook-csv quicklook-json')
+
+print "Installing Fonts"
+os.system('brew cask install robofont fontforge birdfont skyfonts trufont')
 
 print "Installing iOS Tools"
 os.system('sudo gem install cocoapods')
@@ -380,11 +291,10 @@ os.system('open -a "Google Chrome" --args --make-default-browser')
 # Clean Up
 os.system('brew cleanup && brew cask cleanup')
 
-print "*************************************"
-print "Your SSH Public Key Is:"
-with open(os.path.expanduser("~") + '/.ssh/id_rsa.pub', 'r') as f:
-  print f.read()
-print ""
+# print "*************************************"
+# print "Your SSH Public Key Is:"
+# with open(os.path.expanduser("~") + '/.ssh/id_rsa.pub', 'r') as f:
+  # print f.read()
 
 print "*************************************"
 print "Remember to set up iTerm2:"
