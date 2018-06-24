@@ -1,17 +1,24 @@
 import os
+from time import sleep
 
-username = 'danielfelipe-tara73'
-password = 'Shockwave7'
-
-while username == '':
-    username = raw_input("What's your Username?\n").strip()
-
-while password == '':
-    password = raw_input("What's your Password?\n").strip()
-
-file = open("Courses.txt", "r")
+file = open("Pluralsight.txt", "r")
+counter = 0
 
 for course in file:
-    coursename = course.split("/")
-    coursename = coursename.pop()
-    os.system('youtube-dl --sleep-interval 35 --max-sleep-interval 120 --username ' +  username + ' --password ' + password + ' -o  "/Volumes/LaCie/Pluralsight/%(playlist_title)s/%(playlist_index)s-%(title)s.%(ext)s" ' + course)
+	
+	if counter % 2 == 0: 
+		username = 'andrew-thomps'
+		password = 'Shockwave7'
+	else 
+		username = ''
+		password = ''
+
+    if course.startswith( '#' ):
+    	counter = counter + 1
+    	pass
+    elif course.startswith( ' ' ):
+    	counter = counter + 1
+    	pass
+    else:
+    	os.system('youtube-dl --min-sleep-interval 120 --max-sleep-interval 180 --username ' +  username + ' --password ' + password + ' -o  "/Volumes/LaCie/Pluralsight/Download/%(playlist_title)s/%(playlist_index)s-%(title)s.%(ext)s" ' + course)
+    	counter = counter + 1
